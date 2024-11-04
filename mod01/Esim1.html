@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Eka esimerkki</title>
+</head>
+<body>
+    <h2>Eka Javascript ohjelma</h2>
+
+    <!-- Tässä esimerkissä javascript koodi on html-sivulla, ei suositella -->
+
+    <p>
+        Tässäpä tekstiä web-sivulle <br>
+        Kehittäjän salainen konsoli löytyy F12 näppäimellä.
+    </p>
+
+    <p id="tulostusalue"></p>
+
+    <script>
+        'use strict';       // käytetään ns. tiukka moodia
+        let x = 3;          // esiteltiin muuttuja x ja annettiin sille alkuarvo
+        x += 2;             // x = 5
+        x++;                // x = x + 1 eli x:n arvoa lisätään yhdellä
+        console.log("x:n arvo on " + x);
+
+        // prompt(...) lukee kaikki arvot sisään merkkijonona (myös numerot)
+        const nimi = prompt("Anna nimi: ");  // nimi on vakio, ei voi muuttaa
+        // etsitään web-sivulta kappale, jonka id on 'tulostusalue'
+        const tAlue = document.querySelector('#tulostusalue');
+        // tulostetaan tekstiä web-sivulle
+        tAlue.innerHTML = "Terve " + nimi + "!"
+    </script>
+
+</body>
+</html>
