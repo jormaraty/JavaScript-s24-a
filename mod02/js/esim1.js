@@ -1,33 +1,40 @@
 'use strict';
 
-// etsitään tuloskohta html-sivulta
-const tulostus =
-    document.querySelector('#tulosAlue')
+// etsitään tulostusalue html-sivulta
+const tulostus = document.querySelector('#tulosalue');
 
-// luodaan tyhjä taulukko/lista lukuja varten
-let luvut = []
+let tulos;      // kolikonheiton tulos (tyyppinä nyt undefined)
 
-// kysytään käyttäjältä arvot ja lisään ne listaan
-for (let i = 0; i< 5; i++)  {
-    let arvo =
-        +prompt("Anna kokonaisluku: ")
-    luvut.push(arvo)
+// arvotaan desimaaliarvo väliltä 0 - 0,999999...
+let arvottu = Math.random();
+
+// valitaan kolikonheiton tulos satunnaisluvun avulla
+if (arvottu < 0.5) {
+    tulos = "kruunu";
+} else {
+    tulos = "klaava";
 }
 
-tulostus.innerHTML =
-    `Tulostetaan taulukon arvot for-toistolla <br>`
+tulostus.innerHTML = `Heitin kolikkoa, ${tulos} tuli! <br><br>`;
 
-for (let i = 0; i < luvut.length; i++)  {
-    tulostus.innerHTML += `${luvut[i]} <br>`
+// --------
+
+// kysytään lähtötiedot
+let pituus = +prompt("Kuinka pitkä olet (cm): ");
+pituus = pituus / 100;          // pituus metreinä
+const painoStr = prompt("Paljonko painat: (kg): ");
+const paino = parseInt(painoStr);
+
+// lasketaan painoindeksi: paino / (pituus ^ 2)
+let painoindeksi = paino / Math.pow(pituus, 2);
+
+// ihannearvot välillä 18,5 ...  25, tulostetaan nyt BMI 1 desimeelilla
+if (painoindeksi >= 18.5  &&  painoindeksi <= 25) {
+    tulostus.innerHTML += `BMI = ${painoindeksi.toFixed(1)}, loistavaa! <br>`;
+} else if (painoindeksi < 18.5) {
+    tulostus.innerHTML += `BMI = ${painoindeksi.toFixed(1)}, painoa voisi olla enemmänkin <br>`;
+} else {
+    tulostus.innerHTML += `BMI = ${painoindeksi.toFixed(1)}, voi voi ... <br>`;
 }
 
-tulostus.innerHTML += `Lajitellaan numerot suuruusjärjestykseen <br>`
-
-// numerot joudutaan lajittelemaan ns. nuolifunktion avulla,
-// oletuksena on lajittelu aakkosjärjestykseen eli 11, 213, 3, 4
-luvut.sort((a, b) => a - b)
-
-tulostus.innerHTML += `Luvut tulostetaan for .. of -toistolla <br>`
-for (let arvo of luvut) {
-    tulostus.innerHTML += `${arvo} <br>`
-}
+tulostus.innerHTML += `BMI on laskettu arvoilla ${pituus} m ja ${paino} kg`
