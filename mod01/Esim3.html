@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>For toisto</title>
+</head>
+<body>
+
+<h3>5 tervehdystä sinulle</h3>
+
+<p id="tulostus"></p>
+
+<script>
+    'use strict';
+    let nimi = prompt("Anna nimi: ")
+    const tulosAlue = document.querySelector('#tulostus')
+
+    // toistetaan 5 kertaa
+    for (let toistoja = 0; toistoja < 5; toistoja++) {
+        tulosAlue.innerHTML += `Terve ${nimi} <br>`
+    }
+
+</script>
+
+</body>
+</html>
