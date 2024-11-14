@@ -21,20 +21,70 @@ const pElement = document.createElement('p');
 pElement.textContent = 'Uusi kappale.'
 h1Element.parentElement.append(pElement);
 
-// BOM (window-objekti tarjoaa rajapinnan selaimen toiminnallisuuksiin)
-window.alert("Aloita paikannus?"); // toimii myös alert()
-// esim. window.document
-const pLocation = document.createElement('p');
-pLocation.textContent = 'paikannetaan...';
-document.querySelector('body').append(pLocation);
-// geolocation api
-navigator.geolocation.getCurrentPosition(function (location) {
-    console.log('paikannettu: ', location);
-    pLocation.textContent = `Sijaintisi: ${location.coords.latitude},
-        ${location.coords.longitude}, tarkkuus: ${location.coords.accuracy}`;
-});
+function locateUser() {
+    // BOM (window-objekti tarjoaa rajapinnan selaimen toiminnallisuuksiin)
+    const confirmed = window.confirm("Aloita paikannus?"); // toimii myös alert()
+    // if cancelled, exit function
+    if (!confirmed) {
+        return;
+    }
+    // esim. window.document
+    const pLocation = document.createElement('p');
+    pLocation.textContent = 'paikannetaan...';
+    document.querySelector('body').append(pLocation);
+    // geolocation api (materiaalissa kokonainen karttaesimerkki)
+    // tässä tulostetaan vain koordinaatit, eikä ole virheenkäsittelyä
+    navigator.geolocation.getCurrentPosition(function (location) {
+        console.log('paikannettu: ', location);
+        pLocation.textContent = `Sijaintisi: ${location.coords.latitude},
+            ${location.coords.longitude}, tarkkuus: ${location.coords.accuracy}`;
+    });
+}
 
 // sijainti (selaimen url)
 console.log(location.href)
+
+// Tapahtumankäsittely (eventit)
+const locateButton = document.querySelector('#locate');
+locateButton.addEventListener('click', function (event) {
+    console.log('button clicked, event object:', event);
+    locateUser();
+});
+
+// Mouse event -esimerkki
+document.addEventListener('mousemove', function (event) {
+    //console.log('hiiri liikkuu', event);
+    pElement.textContent = `Hiiren sijainti ruudulla: ${event.clientX}, ${event.clientY} `;
+});
+// hover
+h1Element.addEventListener('mouseenter', function () {
+    h1Element.style.fontSize = '2em';
+});
+h1Element.addEventListener('mouseleave', function () {
+    h1Element.style.fontSize = '1em';
+});
+
+// keyboard event -esimerkki
+let fontSize = 12;
+const keyloggerBuffer = [];
+document.addEventListener('keypress', function (event){
+    keyloggerBuffer.push(event.key)
+    //console.log('keypress event', event);
+    console.log('keys pressed: ', keyloggerBuffer)
+    // press z / shift-x
+    if (event.key === 'z') {
+        fontSize++;
+    } else if (event.key === 'Z') {
+        fontSize--;
+    }
+    pElement.style.fontSize = fontSize+ 'px';
+});
+
+// prevent default behaviour of an event
+const formElem = document.querySelector('form');
+formElem.addEventListener('submit', function(event) {
+    event.preventDefault();
+    console.log('form event', event);
+});
 
 console.log("ohjelman loppu");
