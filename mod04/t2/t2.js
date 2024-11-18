@@ -1,12 +1,15 @@
 'use strict';
 
-// When the form is submitted...
+// Etsitään form-elementti html-sivulta
 const tvForm = document.querySelector('#tv');
+
+// Määritellään syöttölomakkeelle tapahtumankäsittelijä
 tvForm.addEventListener('submit', async function (evt) {
     // ... prevent the default action.
     evt.preventDefault();
     // get value of input element
     const query = document.querySelector('input[name=q]').value;
+
     try {
         // error handling: try/catch/finally
         const response = await fetch(
